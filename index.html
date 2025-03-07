@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Welcome to TechnoCore Industries</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: "Courier New", monospace;
+                background-color: #000;
+                color: #0f0;
+                height: 100vh;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+
+            .logo {
+                font-size: 4rem;
+                text-transform: uppercase;
+                margin-bottom: 1rem;
+                text-shadow:
+                    0 0 10px #0f0,
+                    0 0 20px #0f0,
+                    0 0 30px #0f0;
+                animation: pulse 2s infinite;
+            }
+
+            .tagline {
+                font-size: 1.5rem;
+                margin-bottom: 3rem;
+                width: 80%;
+                max-width: 800px;
+            }
+
+            .loader-container {
+                position: relative;
+                width: 200px;
+                height: 200px;
+                margin-bottom: 2rem;
+            }
+
+            .loader {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 8px solid transparent;
+                border-radius: 50%;
+                animation: spin 4s linear infinite;
+            }
+
+            .loader:nth-child(1) {
+                border-top-color: #0f0;
+                animation-duration: 3s;
+            }
+
+            .loader:nth-child(2) {
+                border-right-color: #0f8;
+                animation-duration: 2s;
+            }
+
+            .loader:nth-child(3) {
+                border-bottom-color: #08f;
+                animation-duration: 1.5s;
+            }
+
+            .promise-container {
+                margin-top: 2rem;
+                height: 2rem;
+            }
+
+            .promise {
+                animation: changeText 6s infinite;
+                opacity: 1;
+            }
+
+            #welcomeMessage {
+                font-size: 1.2rem;
+                margin-top: 1rem;
+                height: 3rem;
+            }
+
+            .blink {
+                animation: blink 1s steps(2, start) infinite;
+            }
+
+            .cta-button {
+                margin-top: 2rem;
+                padding: 1rem 2rem;
+                font-size: 1.2rem;
+                background-color: transparent;
+                color: #0f0;
+                border: 2px solid #0f0;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.3s;
+                font-family: "Courier New", monospace;
+                text-transform: uppercase;
+            }
+
+            .cta-button:hover {
+                background-color: #0f0;
+                color: #000;
+                box-shadow:
+                    0 0 10px #0f0,
+                    0 0 20px #0f0;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @keyframes pulse {
+                0% {
+                    opacity: 0.7;
+                }
+                50% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 0.7;
+                }
+            }
+
+            @keyframes blink {
+                to {
+                    visibility: hidden;
+                }
+            }
+
+            @keyframes changeText {
+                0%,
+                16% {
+                    opacity: 1;
+                }
+                20%,
+                96% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+
+            .footer {
+                position: absolute;
+                bottom: 10px;
+                font-size: 0.8rem;
+                opacity: 0.7;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="logo">TechnoCore Industries</div>
+        <div class="tagline">
+            The only limit is yourself. Welcome to TechnoCore.Industries.
+            Everything is possible with TechnoCore. The unattainable is unknown
+            at TechnoCore.Industries.
+        </div>
+
+        <div class="loader-container">
+            <div class="loader"></div>
+            <div class="loader"></div>
+            <div class="loader"></div>
+        </div>
+
+        <div class="promise-container">
+            <div class="promise">Disrupting paradigms since 2025.</div>
+            <div class="promise">
+                We're in stealth mode, but still taking your data.
+            </div>
+            <div class="promise">
+                Our AI knows what you're thinking before you do.
+            </div>
+            <div class="promise">
+                Quantum blockchain synergy. Non-fungible excellence.
+            </div>
+            <div class="promise">
+                Leveraging microservices for macro results.
+            </div>
+            <div class="promise">Our engineers have never seen the sun.</div>
+        </div>
+
+        <div id="welcomeMessage">Welcome<span class="blink">_</span></div>
+
+        <button class="cta-button" id="ctaButton">Enter The Core</button>
+
+        <div class="footer">
+            © 2025 TechnoCore Industries. All your base are belong to us.
+        </div>
+
+        <script>
+            const messages = [
+                "Welcome to TechnoCore.Industries...",
+                "You can do anything at TechnoCore.Industries...",
+                "The only limit is yourself...",
+                "Our blockchain is trained by 15 GPTs...",
+                "We're democratizing quantum computing...",
+                "Loading disruption algorithm...",
+                "Unblocking your chain...",
+                "Scanning your thoughts...",
+                "Integrating your microservices...",
+                "Calibrating neural mesh...",
+                "Welcome to the future...",
+            ];
+
+            let currentMessageIndex = 0;
+            let currentCharIndex = 0;
+            let isDeleting = false;
+            let typingSpeed = 100;
+
+            function typeMessage() {
+                const welcomeMessage =
+                    document.getElementById("welcomeMessage");
+                const currentMessage = messages[currentMessageIndex];
+
+                if (isDeleting) {
+                    welcomeMessage.innerHTML =
+                        currentMessage.substring(0, currentCharIndex) +
+                        '<span class="blink">_</span>';
+                    currentCharIndex--;
+                    typingSpeed = 50;
+
+                    if (currentCharIndex < 0) {
+                        isDeleting = false;
+                        currentMessageIndex =
+                            (currentMessageIndex + 1) % messages.length;
+                        typingSpeed = 1000; // Pause before typing next message
+                    }
+                } else {
+                    welcomeMessage.innerHTML =
+                        currentMessage.substring(0, currentCharIndex) +
+                        '<span class="blink">_</span>';
+                    currentCharIndex++;
+                    typingSpeed = 100;
+
+                    if (currentCharIndex > currentMessage.length) {
+                        isDeleting = true;
+                        typingSpeed = 2000; // Pause before deleting
+                    }
+                }
+
+                setTimeout(typeMessage, typingSpeed);
+            }
+
+            // Start the typing animation when the page loads
+            window.onload = function () {
+                typeMessage();
+
+                // Show random promises
+                const promises = document.querySelectorAll(".promise");
+                setInterval(() => {
+                    promises.forEach((p) => (p.style.display = "none"));
+                    const randomIndex = Math.floor(
+                        Math.random() * promises.length,
+                    );
+                    promises[randomIndex].style.display = "block";
+                }, 4000);
+
+                // Add click event for the CTA button
+                document
+                    .getElementById("ctaButton")
+                    .addEventListener("click", function () {
+                        alert(
+                            "CONGRATULATIONS! You have just experienced the future. There is nothing else to do here. Your data has been harvested. Have a nice day!",
+                        );
+                    });
+            };
+        </script>
+    </body>
+</html>
